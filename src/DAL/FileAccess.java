@@ -13,24 +13,25 @@ import java.io.FileReader;
  */
 public class FileAccess
 {
+    
+    
+    public Array
+    BufferedReader br = new BufferedReader(new FileReader("brit-a-z.txt"));
+       
+            String line = br.readLine();
 
-//    BufferedReader br = new BufferedReader(new FileReader("file.txt"));
-//        try
-//        {
-//            String line = br.readLine();
-//
-//            while (line != null)
-//            {
-//                sb.append(line);
-//                sb.append("\n");
-//                line = br.readLine();
-//            }
-//            String everything = sb.toString();
-//    }
-//
-//    
-//    
-//        finally {
-//        br.close();
-//    }
+            while (line != null)
+            {
+                sb.append(line);
+                sb.append("\n");
+                line = br.readLine();
+            }
+            String everything = sb.toString();
+    
+
+    
+    
+        finally {
+        br.close();
+    }
 }
