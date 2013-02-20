@@ -29,8 +29,7 @@ public class WordSearch extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         lblQuery = new javax.swing.JLabel();
@@ -53,13 +52,12 @@ public class WordSearch extends javax.swing.JFrame
         btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("WordSearch");
 
         lblQuery.setText("Query:");
 
-        txtBoxQuery.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        txtBoxQuery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBoxQueryActionPerformed(evt);
             }
         });
@@ -208,7 +206,7 @@ public class WordSearch extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose)
                     .addComponent(lblCount))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(lblCountAmount)
                 .addGap(34, 34, 34))
         );
@@ -278,6 +276,13 @@ public class WordSearch extends javax.swing.JFrame
             {
                 new WordSearch().setVisible(true);
             }
+            
+            public void search()
+            {
+            }
+            
+            
+            
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
