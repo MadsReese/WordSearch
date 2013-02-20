@@ -12,23 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *As we only need to access the database once, there is only need for a getAll()
  * @author Reese
  */
 public class FileAccess
 {
-
     /**
      * Gets the words from the dictionary file
      * @return the words in a list
      * @throws FileNotFoundException If the file cannot be found
      * @throws IOException If the file cannot be read
      */
-    public List<String> getWords() throws FileNotFoundException, IOException
+    public List<String> getAll() throws FileNotFoundException, IOException
     {
         
-        try(BufferedReader br = new BufferedReader(new FileReader("brit-a-z.txt"));
-)
+        try(BufferedReader br = new BufferedReader(new FileReader("brit-a-z.txt")))
         {
             List<String> words = new ArrayList<>();
             String line = br.readLine();
