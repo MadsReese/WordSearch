@@ -4,12 +4,11 @@
  */
 package DAL;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 /**
  *As we only need to access the database once, there is only need for a getAll()
@@ -26,14 +25,15 @@ public class FileAccess
     public ArrayList<String> getAll() throws FileNotFoundException, IOException
     {
         
-        try(BufferedReader br = new BufferedReader(new FileReader("brit-a-z.txt")))
+        try(FileReader fr = new FileReader("brit-a-z.txt"))
         {
             ArrayList<String> words = new ArrayList<>();
-            String line = br.readLine();
+            Scanner sc = new Scanner(fr);
             
-            while (line != null)
+            
+            while (sc.hasNext())
             {
-                words.add(line);
+                words.add(sc.next());
             }
             
             return words;
