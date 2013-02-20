@@ -19,6 +19,7 @@ public class Main
         try
         {
             FileManager fM = new FileManager();
+            String[] word = fM.beginsWith("a");
         }
         catch (FileNotFoundException ex)
         {
@@ -28,7 +29,5 @@ public class Main
         {
             System.out.println("Derp");
         }
-        
-        String[] word = fM.beginsWith("a");
     }
 }
