@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class FileManager
 {
-    FileAccess fA = null;
-    List<String> words = null;
-    String[] wordArray = null;
+    private FileAccess fA = null;
+    private ArrayList<String> words = null;
+    private String[] wordsArray = null;
 
     public FileManager() throws FileNotFoundException, IOException
     {
@@ -26,20 +26,21 @@ public class FileManager
         words = fA.getAll();
     }
     
-    public String[] beginsWith(String str)
+    public ArrayList beginsWith(String str)
     {
-        wordArray = (String[]) words.toArray();
-        
-        //List<String> sortedWords = new ArrayList<>();
-        String[] sortedWords = null;
-        for(int i = 0; i < wordArray.length; i++)
+        ArrayList<String> sortedWords = new ArrayList<>();
+        for(String s : words)
         {
-            if(wordArray[i].startsWith(str))
+            if(s.startsWith(str))
             {
-                //sortedWords.add(str);
-                sortedWords[i] = str;
+                sortedWords.add(s);
             }
         }
         return sortedWords;
+    }
+    
+    public ArrayList getAll()
+    {
+        return words;
     }
 }

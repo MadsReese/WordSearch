@@ -23,18 +23,19 @@ public class FileAccess
      * @throws FileNotFoundException If the file cannot be found
      * @throws IOException If the file cannot be read
      */
-    public List<String> getAll() throws FileNotFoundException, IOException
+    public ArrayList<String> getAll() throws FileNotFoundException, IOException
     {
         
         try(BufferedReader br = new BufferedReader(new FileReader("brit-a-z.txt")))
         {
-            List<String> words = new ArrayList<>();
+            ArrayList<String> words = new ArrayList<>();
             String line = br.readLine();
-
+            
             while (line != null)
             {
                 words.add(line);
             }
+            
             return words;
         }
     }

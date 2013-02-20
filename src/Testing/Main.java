@@ -7,6 +7,7 @@ package Testing;
 import BLL.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +20,12 @@ public class Main
         try
         {
             FileManager fM = new FileManager();
-            String[] word = fM.beginsWith("a");
+            ArrayList<String> word = fM.getAll();
+            
+            for(String s : word)
+            {
+                System.out.println(s);
+            }
         }
         catch (FileNotFoundException ex)
         {
