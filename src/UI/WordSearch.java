@@ -8,6 +8,7 @@ import BLL.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class WordSearch extends javax.swing.JFrame
     
     private DefaultListModel model = new DefaultListModel();
     private FileManager fM = null;
+    private int switchLimitation = 10;
 
 
     /**
@@ -153,6 +155,13 @@ public class WordSearch extends javax.swing.JFrame
         pnlLimitation.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Limitation"));
 
         cmbBoxLimitation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "10", "20", "50", "100" }));
+        cmbBoxLimitation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cmbBoxLimitationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlLimitationLayout = new javax.swing.GroupLayout(pnlLimitation);
         pnlLimitation.setLayout(pnlLimitationLayout);
@@ -174,6 +183,8 @@ public class WordSearch extends javax.swing.JFrame
         jScrollPane1.setViewportView(lstResult);
 
         lblCount.setText("Count:");
+
+        lblCountAmount.setText("0");
 
         btnClose.setText("Close");
 
@@ -208,18 +219,14 @@ public class WordSearch extends javax.swing.JFrame
                     .addComponent(lblResult))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBoxQuery)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(lblCountAmount)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBoxQuery)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCount)
-                                .addGap(0, 150, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)))
+                        .addComponent(lblCount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCountAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 52, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlSearchOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlCaseSens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,10 +261,9 @@ public class WordSearch extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose)
-                    .addComponent(lblCount))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(lblCountAmount)
-                .addGap(34, 34, 34))
+                    .addComponent(lblCount)
+                    .addComponent(lblCountAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,35 +284,55 @@ public class WordSearch extends javax.swing.JFrame
         }
         if(rdBtnBeginsWith.isSelected())
         {
-            ArrayList<String> beginsWith = fM.getBeginsWith(query);
+            List<String> beginsWith = fM.getBeginsWith(query);
+            if(cmbBoxLimitation.getSelectedIndex() > 0)
+            {
+                beginsWith = beginsWith.subList(0,switchLimitation);
+            }
             for(String s : beginsWith)
             {
                 model.addElement(s);
             }
+            lblCountAmount.setText("" + beginsWith.size());
         }
         else if(rdBtnContains.isSelected())
         {
-            ArrayList<String> contains = fM.getContains(query);
+            List<String> contains = fM.getContains(query);
+            if(cmbBoxLimitation.getSelectedIndex() > 0)
+            {
+                contains = contains.subList(0, switchLimitation);
+            }
             for(String s : contains)
             {
                 model.addElement(s);
             }
+            lblCountAmount.setText("" + contains.size());
         }
         else if(rdBtnEndsWith.isSelected())
         {
-            ArrayList<String> endsWith = fM.getEndsWith(query);
+            List<String> endsWith = fM.getEndsWith(query);
+            if(cmbBoxLimitation.getSelectedIndex() > 0)
+            {
+                endsWith = endsWith.subList(0, switchLimitation);
+            }
             for(String s : endsWith)
             {
                 model.addElement(s);
             }
+            lblCountAmount.setText("" + endsWith.size());
         }
         else
         {
-            ArrayList<String> exact = fM.getExact(query);
+            List<String> exact = fM.getExact(query);
+            if(cmbBoxLimitation.getSelectedIndex() > 0)
+            {
+                exact = exact.subList(0, switchLimitation);
+            }
             for(String s : exact)
             {
                 model.addElement(s);
             }
+            lblCountAmount.setText("" + exact.size());
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -314,7 +340,23 @@ public class WordSearch extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnClearActionPerformed
         model.clear();
         txtBoxQuery.setText("");
+        lblCountAmount.setText("0");
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbBoxLimitationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cmbBoxLimitationActionPerformed
+    {//GEN-HEADEREND:event_cmbBoxLimitationActionPerformed
+        switch(cmbBoxLimitation.getSelectedIndex())
+        {
+            case 1: switchLimitation = 10;
+                break;
+            case 2: switchLimitation = 20;
+                break;
+            case 3: switchLimitation = 50;
+                break;
+            case 4: switchLimitation = 100;
+                break;
+        }
+    }//GEN-LAST:event_cmbBoxLimitationActionPerformed
 
     /**
      * @param args the command line arguments
