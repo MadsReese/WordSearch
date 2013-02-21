@@ -29,7 +29,8 @@ public class WordSearch extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         lblQuery = new javax.swing.JLabel();
@@ -44,7 +45,7 @@ public class WordSearch extends javax.swing.JFrame
         pnlLimitation = new javax.swing.JPanel();
         cmbBoxLimitation = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        lstResult = new javax.swing.JList();
         lblCount = new javax.swing.JLabel();
         lblCountAmount = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
@@ -56,8 +57,10 @@ public class WordSearch extends javax.swing.JFrame
 
         lblQuery.setText("Query:");
 
-        txtBoxQuery.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtBoxQuery.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtBoxQueryActionPerformed(evt);
             }
         });
@@ -142,7 +145,7 @@ public class WordSearch extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lstResult);
 
         lblCount.setText("Count:");
 
@@ -292,11 +295,11 @@ public class WordSearch extends javax.swing.JFrame
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkBoxCaseSens;
     private javax.swing.JComboBox cmbBoxLimitation;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblCountAmount;
     private javax.swing.JLabel lblQuery;
+    private javax.swing.JList lstResult;
     private javax.swing.JPanel pnlCaseSens;
     private javax.swing.JPanel pnlLimitation;
     private javax.swing.JPanel pnlSearchOptions;
