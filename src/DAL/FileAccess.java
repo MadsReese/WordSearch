@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,12 +23,12 @@ public class FileAccess
      * @throws FileNotFoundException If the file cannot be found
      * @throws IOException If the file cannot be read
      */
-    public ArrayList<String> getAll() throws FileNotFoundException, IOException
+    public List<String> getAll() throws FileNotFoundException, IOException
     {
         
         try(FileReader fr = new FileReader("brit-a-z.txt"))
         {
-            ArrayList<String> words = new ArrayList<>();
+            List<String> words = new ArrayList<>();
             Scanner sc = new Scanner(fr);
             
             

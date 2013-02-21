@@ -8,6 +8,7 @@ import DAL.FileAccess;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +18,7 @@ public class FileManager
 {
     //Local Variables\\
     private FileAccess fA = null;
-    private ArrayList<String> words = null;
+    private List<String> words = null;
 
     /**
      * When the filemanager is initiated it connects to the dal layer 
@@ -36,9 +37,9 @@ public class FileManager
      * @param str the string to search from
      * @return ArrayList with resultset
      */
-    public ArrayList getBeginsWith(String str)
+    public List getBeginsWith(String str)
     {
-        ArrayList<String> sortedWords = new ArrayList<>();
+        List<String> sortedWords = new ArrayList<>();
         for(String s : words)
         {
             if(s.startsWith(str))
@@ -54,9 +55,9 @@ public class FileManager
      * @param str the string you want to search from
      * @return ArrayList with result
      */
-    public ArrayList getContains(String str)
+    public List getContains(String str)
     {
-        ArrayList<String> sortedWords = new ArrayList<>();
+        List<String> sortedWords = new ArrayList<>();
         for(String s : words)
         {
             if(s.contains(str))
@@ -72,9 +73,9 @@ public class FileManager
      * @param str the string to search from
      * @return ArrayList of the words
      */
-    public ArrayList getEndsWith(String str)
+    public List getEndsWith(String str)
     {
-        ArrayList<String> sortedWords = new ArrayList<>();
+        List<String> sortedWords = new ArrayList<>();
         for(String s : words)
         {
             if(s.endsWith(str))
@@ -85,9 +86,14 @@ public class FileManager
         return sortedWords;
     }
     
-    public ArrayList getExact(String str)
+    /**
+     * Returns a list of strings with the exact same as the query
+     * @param str the query
+     * @return the result in a list
+     */
+    public List getExact(String str)
     {
-        ArrayList<String> sortedWords = new ArrayList<>();
+        List<String> sortedWords = new ArrayList<>();
         for(String s : words)
         {
             if(s.equals(str))
@@ -102,7 +108,7 @@ public class FileManager
      * Returns all the words
      * @return ArrayList of all the words
      */
-    public ArrayList getAll()
+    public List getAll()
     {
         return words;
     }

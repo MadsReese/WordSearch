@@ -24,7 +24,7 @@ public class WordSearch extends javax.swing.JFrame
     
     private DefaultListModel model = new DefaultListModel();
     private FileManager fM = null;
-    private int switchLimitation = 10;
+    private int switchLimitation = Integer.MAX_VALUE;
 
 
     /**
@@ -187,6 +187,13 @@ public class WordSearch extends javax.swing.JFrame
         lblCountAmount.setText("0");
 
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener()
@@ -274,65 +281,27 @@ public class WordSearch extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBoxQueryActionPerformed
 
+    /**
+     * The heart of the program
+     * @param evt 
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSearchActionPerformed
     {//GEN-HEADEREND:event_btnSearchActionPerformed
-        model.clear();
-        String query = txtBoxQuery.getText();
-        if(!chkBoxCaseSens.isSelected())
-        {
-            query = query.toLowerCase();
-        }
         if(rdBtnBeginsWith.isSelected())
         {
-            List<String> beginsWith = fM.getBeginsWith(query);
-            if(cmbBoxLimitation.getSelectedIndex() > 0)
-            {
-                beginsWith = beginsWith.subList(0,switchLimitation);
-            }
-            for(String s : beginsWith)
-            {
-                model.addElement(s);
-            }
-            lblCountAmount.setText("" + beginsWith.size());
+            printBeginsWith();
         }
         else if(rdBtnContains.isSelected())
         {
-            List<String> contains = fM.getContains(query);
-            if(cmbBoxLimitation.getSelectedIndex() > 0)
-            {
-                contains = contains.subList(0, switchLimitation);
-            }
-            for(String s : contains)
-            {
-                model.addElement(s);
-            }
-            lblCountAmount.setText("" + contains.size());
+            printContains();
         }
         else if(rdBtnEndsWith.isSelected())
         {
-            List<String> endsWith = fM.getEndsWith(query);
-            if(cmbBoxLimitation.getSelectedIndex() > 0)
-            {
-                endsWith = endsWith.subList(0, switchLimitation);
-            }
-            for(String s : endsWith)
-            {
-                model.addElement(s);
-            }
-            lblCountAmount.setText("" + endsWith.size());
+            printEndsWith();
         }
         else
         {
-            List<String> exact = fM.getExact(query);
-            if(cmbBoxLimitation.getSelectedIndex() > 0)
-            {
-                exact = exact.subList(0, switchLimitation);
-            }
-            for(String s : exact)
-            {
-                model.addElement(s);
-            }
-            lblCountAmount.setText("" + exact.size());
+            printExact();
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -347,16 +316,29 @@ public class WordSearch extends javax.swing.JFrame
     {//GEN-HEADEREND:event_cmbBoxLimitationActionPerformed
         switch(cmbBoxLimitation.getSelectedIndex())
         {
-            case 1: switchLimitation = 10;
+            case 0: 
+                switchLimitation = Integer.MAX_VALUE;
                 break;
-            case 2: switchLimitation = 20;
+            case 1: 
+                switchLimitation = 10;
                 break;
-            case 3: switchLimitation = 50;
+            case 2: 
+                switchLimitation = 20;
                 break;
-            case 4: switchLimitation = 100;
+            case 3: 
+                switchLimitation = 50;
+                break;
+            case 4: 
+                switchLimitation = 100;
                 break;
         }
+        btnSearch.doClick();
     }//GEN-LAST:event_cmbBoxLimitationActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCloseActionPerformed
+    {//GEN-HEADEREND:event_btnCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -446,4 +428,72 @@ public class WordSearch extends javax.swing.JFrame
     private javax.swing.JRadioButton rdBtnExact;
     private javax.swing.JTextField txtBoxQuery;
     // End of variables declaration//GEN-END:variables
+
+    private void printBeginsWith()
+    {
+        model.clear();
+        String query = txtBoxQuery.getText();
+        if(!chkBoxCaseSens.isSelected())
+        {
+            query = query.toLowerCase();
+        }
+        List<String> beginsWith = fM.getBeginsWith(query);
+        beginsWith = beginsWith.subList(0,Math.min(beginsWith.size(), switchLimitation));
+        for(String s : beginsWith)
+        {
+            model.addElement(s);
+        }
+        lblCountAmount.setText("" + beginsWith.size());
+    }
+
+    private void printContains()
+    {
+        model.clear();
+        String query = txtBoxQuery.getText();
+        if(!chkBoxCaseSens.isSelected())
+        {
+            query = query.toLowerCase();
+        }
+        List<String> contains = fM.getContains(query);
+        contains = contains.subList(0, Math.min(contains.size(), switchLimitation));
+        for(String s : contains)
+        {
+            model.addElement(s);
+        }
+        lblCountAmount.setText("" + contains.size());
+    }
+
+    private void printEndsWith()
+    {
+        model.clear();
+        String query = txtBoxQuery.getText();
+        if(!chkBoxCaseSens.isSelected())
+        {
+            query = query.toLowerCase();
+        }
+        List<String> endsWith = fM.getEndsWith(query);
+        endsWith = endsWith.subList(0, Math.min(endsWith.size(), switchLimitation));
+        for(String s : endsWith)
+        {
+            model.addElement(s);
+        }
+        lblCountAmount.setText("" + endsWith.size());
+    }
+
+    private void printExact()
+    {
+        model.clear();
+        String query = txtBoxQuery.getText();
+        if(!chkBoxCaseSens.isSelected())
+        {
+            query = query.toLowerCase();
+        }
+        List<String> exact = fM.getExact(query);
+        exact = exact.subList(0, Math.min(exact.size(), switchLimitation));
+        for(String s : exact)
+        {
+            model.addElement(s);
+        }
+        lblCountAmount.setText("" + exact.size());
+    }
 }
