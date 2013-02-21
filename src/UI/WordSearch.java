@@ -5,18 +5,13 @@
 package UI;
 
 import BLL.FileManager;
-import java.awt.event.ActionEvent;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -305,7 +300,7 @@ public class WordSearch extends javax.swing.JFrame
 
     private void txtBoxQueryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtBoxQueryActionPerformed
     {//GEN-HEADEREND:event_txtBoxQueryActionPerformed
-        // TODO add your handling code here:
+        btnSearch.doClick();
     }//GEN-LAST:event_txtBoxQueryActionPerformed
 
     /**
@@ -314,6 +309,10 @@ public class WordSearch extends javax.swing.JFrame
      */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSearchActionPerformed
     {//GEN-HEADEREND:event_btnSearchActionPerformed
+        if(txtBoxQuery.getText().equals("hhhehehe"))
+        {
+            JOptionPane.showMessageDialog(null, "hhhehehe");
+        }
         if(rdBtnBeginsWith.isSelected())
         {
             printBeginsWith();
