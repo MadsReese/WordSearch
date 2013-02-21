@@ -26,10 +26,10 @@ public class FileManager
      * @throws FileNotFoundException if the text file cannot be found
      * @throws IOException if the text file cannot be read
      */
-    public FileManager() throws FileNotFoundException, IOException
+    public FileManager(String path) throws FileNotFoundException, IOException
     {
         fA = new FileAccess();
-        words = fA.getAll();
+        words = getAll(path);
     }
     
     /**
@@ -108,8 +108,8 @@ public class FileManager
      * Returns all the words
      * @return ArrayList of all the words
      */
-    public List getAll()
+    public List getAll(String path) throws FileNotFoundException, IOException
     {
-        return words;
+        return words = fA.getAll(path);
     }
 }

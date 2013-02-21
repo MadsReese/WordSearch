@@ -5,11 +5,14 @@
 package UI;
 
 import BLL.FileManager;
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -25,6 +28,8 @@ public class WordSearch extends javax.swing.JFrame
     private DefaultListModel model = new DefaultListModel();
     private FileManager fM = null;
     private int switchLimitation = Integer.MAX_VALUE;
+    final JFileChooser fc = new JFileChooser();
+    private String path = "brit-a-z.txt";
 
 
     /**
@@ -36,7 +41,7 @@ public class WordSearch extends javax.swing.JFrame
         lstResult.setModel(model);
         try
         {
-            fM = new FileManager();
+            fM = new FileManager(path);
         }
         catch (FileNotFoundException ex)
         {
@@ -78,6 +83,7 @@ public class WordSearch extends javax.swing.JFrame
         btnSearch = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         lblResult = new javax.swing.JLabel();
+        btnFileChanger = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WordSearch");
@@ -187,6 +193,9 @@ public class WordSearch extends javax.swing.JFrame
         lblCountAmount.setText("0");
 
         btnClose.setText("Close");
+        btnClose.setMaximumSize(new java.awt.Dimension(60, 23));
+        btnClose.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnClose.setPreferredSize(new java.awt.Dimension(60, 23));
         btnClose.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -196,6 +205,8 @@ public class WordSearch extends javax.swing.JFrame
         });
 
         btnSearch.setText("Search");
+        btnSearch.setMaximumSize(new java.awt.Dimension(60, 23));
+        btnSearch.setMinimumSize(new java.awt.Dimension(60, 23));
         btnSearch.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -205,6 +216,8 @@ public class WordSearch extends javax.swing.JFrame
         });
 
         btnClear.setText("Clear");
+        btnClear.setMaximumSize(new java.awt.Dimension(60, 23));
+        btnClear.setMinimumSize(new java.awt.Dimension(60, 23));
         btnClear.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -214,6 +227,15 @@ public class WordSearch extends javax.swing.JFrame
         });
 
         lblResult.setText("Result:");
+
+        btnFileChanger.setText("File...");
+        btnFileChanger.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnFileChangerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,11 +260,14 @@ public class WordSearch extends javax.swing.JFrame
                     .addComponent(pnlSearchOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlCaseSens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlLimitation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSearch)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnFileChanger)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -252,8 +277,8 @@ public class WordSearch extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQuery)
                     .addComponent(txtBoxQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch)
-                    .addComponent(btnClear))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -267,7 +292,9 @@ public class WordSearch extends javax.swing.JFrame
                     .addComponent(lblResult))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClose)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFileChanger))
                     .addComponent(lblCount)
                     .addComponent(lblCountAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -340,6 +367,24 @@ public class WordSearch extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_btnCloseActionPerformed
 
+    private void btnFileChangerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnFileChangerActionPerformed
+    {//GEN-HEADEREND:event_btnFileChangerActionPerformed
+        int returnVal = fc.showOpenDialog(this);
+        path = fc.getSelectedFile().getAbsolutePath();
+        try
+        {
+            fM.getAll(path);
+        }
+        catch (FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(this, "File was not found!!!!!!1!");
+        }
+        catch (IOException ex)
+        {
+            JOptionPane.showMessageDialog(this, "File could not be read!???");
+        }
+    }//GEN-LAST:event_btnFileChangerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -409,6 +454,7 @@ public class WordSearch extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnFileChanger;
     private javax.swing.JButton btnSearch;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkBoxCaseSens;
