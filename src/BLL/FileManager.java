@@ -85,6 +85,19 @@ public class FileManager
         return sortedWords;
     }
     
+    public ArrayList getExact(String str)
+    {
+        ArrayList<String> sortedWords = new ArrayList<>();
+        for(String s : words)
+        {
+            if(s.equals(str))
+            {
+                sortedWords.add(s);
+            }
+        }
+        return sortedWords;
+    }
+    
     /**
      * Returns all the words
      * @return ArrayList of all the words

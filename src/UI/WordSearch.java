@@ -7,7 +7,9 @@ package UI;
 import BLL.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -32,7 +34,7 @@ public class WordSearch extends javax.swing.JFrame
         lstResult.setModel(model);
         try
         {
-            FileManager fM = new FileManager();
+            fM = new FileManager();
         }
         catch (FileNotFoundException ex)
         {
@@ -91,6 +93,7 @@ public class WordSearch extends javax.swing.JFrame
         pnlSearchOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Search Type"));
 
         buttonGroup1.add(rdBtnBeginsWith);
+        rdBtnBeginsWith.setSelected(true);
         rdBtnBeginsWith.setText("Begins With");
 
         buttonGroup1.add(rdBtnContains);
@@ -184,6 +187,13 @@ public class WordSearch extends javax.swing.JFrame
         });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         lblResult.setText("Result:");
 
@@ -260,12 +270,51 @@ public class WordSearch extends javax.swing.JFrame
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSearchActionPerformed
     {//GEN-HEADEREND:event_btnSearchActionPerformed
+        model.clear();
         String query = txtBoxQuery.getText();
+        if(!chkBoxCaseSens.isSelected())
+        {
+            query = query.toLowerCase();
+        }
         if(rdBtnBeginsWith.isSelected())
         {
-            
+            ArrayList<String> beginsWith = fM.getBeginsWith(query);
+            for(String s : beginsWith)
+            {
+                model.addElement(s);
+            }
+        }
+        else if(rdBtnContains.isSelected())
+        {
+            ArrayList<String> contains = fM.getContains(query);
+            for(String s : contains)
+            {
+                model.addElement(s);
+            }
+        }
+        else if(rdBtnEndsWith.isSelected())
+        {
+            ArrayList<String> endsWith = fM.getEndsWith(query);
+            for(String s : endsWith)
+            {
+                model.addElement(s);
+            }
+        }
+        else
+        {
+            ArrayList<String> exact = fM.getExact(query);
+            for(String s : exact)
+            {
+                model.addElement(s);
+            }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnClearActionPerformed
+    {//GEN-HEADEREND:event_btnClearActionPerformed
+        model.clear();
+        txtBoxQuery.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
