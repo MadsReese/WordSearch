@@ -29,7 +29,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblQuery" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblQuery" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblResult" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -75,15 +78,18 @@
                   <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="pnlSearchOptions" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlCaseSens" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlLimitation" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="pnlSearchOptions" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="pnlCaseSens" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="pnlLimitation" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Component id="lblResult" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -305,10 +311,18 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClear">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblResult">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Result:"/>
       </Properties>
     </Component>
   </SubComponents>

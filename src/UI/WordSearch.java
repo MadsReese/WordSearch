@@ -4,6 +4,11 @@
  */
 package UI;
 
+import BLL.FileManager;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -13,6 +18,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class WordSearch extends javax.swing.JFrame
 {
+    
+    private DefaultListModel model = new DefaultListModel();
+    private FileManager fM = null;
+
 
     /**
      * Creates new form WordSearch
@@ -20,6 +29,19 @@ public class WordSearch extends javax.swing.JFrame
     public WordSearch()
     {
         initComponents();
+        lstResult.setModel(model);
+        try
+        {
+            FileManager fM = new FileManager();
+        }
+        catch (FileNotFoundException ex)
+        {
+            
+        }
+        catch (IOException ex)
+        {
+            
+        }
     }
 
     /**
@@ -51,6 +73,7 @@ public class WordSearch extends javax.swing.JFrame
         btnClose = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        lblResult = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WordSearch");
@@ -152,8 +175,17 @@ public class WordSearch extends javax.swing.JFrame
         btnClose.setText("Close");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
+
+        lblResult.setText("Result:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,7 +193,9 @@ public class WordSearch extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblQuery)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblQuery)
+                    .addComponent(lblResult))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -197,14 +231,16 @@ public class WordSearch extends javax.swing.JFrame
                     .addComponent(btnSearch)
                     .addComponent(btnClear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlSearchOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlCaseSens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlLimitation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(pnlSearchOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pnlCaseSens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pnlLimitation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1))
+                    .addComponent(lblResult))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose)
@@ -221,6 +257,15 @@ public class WordSearch extends javax.swing.JFrame
     {//GEN-HEADEREND:event_txtBoxQueryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBoxQueryActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSearchActionPerformed
+    {//GEN-HEADEREND:event_btnSearchActionPerformed
+        String query = txtBoxQuery.getText();
+        if(rdBtnBeginsWith.isSelected())
+        {
+            
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +344,7 @@ public class WordSearch extends javax.swing.JFrame
     private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblCountAmount;
     private javax.swing.JLabel lblQuery;
+    private javax.swing.JLabel lblResult;
     private javax.swing.JList lstResult;
     private javax.swing.JPanel pnlCaseSens;
     private javax.swing.JPanel pnlLimitation;

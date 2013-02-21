@@ -20,7 +20,7 @@ public class Main
         try
         {
             FileManager fM = new FileManager();
-            ArrayList<String> word = fM.getBeginsWith("A");          
+            ArrayList<String> word = fM.getBeginsWith("");          
             for(String s : word)
             {
                 System.out.println(s);
