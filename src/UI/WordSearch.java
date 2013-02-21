@@ -370,18 +370,21 @@ public class WordSearch extends javax.swing.JFrame
     private void btnFileChangerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnFileChangerActionPerformed
     {//GEN-HEADEREND:event_btnFileChangerActionPerformed
         int returnVal = fc.showOpenDialog(this);
-        path = fc.getSelectedFile().getAbsolutePath();
-        try
+        if(returnVal == 0)
         {
-            fM.getAll(path);
-        }
-        catch (FileNotFoundException ex)
-        {
-            JOptionPane.showMessageDialog(this, "File was not found!!!!!!1!");
-        }
-        catch (IOException ex)
-        {
-            JOptionPane.showMessageDialog(this, "File could not be read!???");
+            path = fc.getSelectedFile().getAbsolutePath();
+            try
+            {
+                fM.getAll(path);
+            }
+            catch (FileNotFoundException ex)
+            {
+                JOptionPane.showMessageDialog(this, "File was not found!!!!!!1!");
+            }
+            catch (IOException ex)
+            {
+                JOptionPane.showMessageDialog(this, "File could not be read!???");
+            }
         }
     }//GEN-LAST:event_btnFileChangerActionPerformed
 
